@@ -1,9 +1,44 @@
 require 'rails_helper'
 
 RSpec.describe "Api::V1::Timers", type: :request do
-  # POST /timers
-  # Test when I add a new timmer
-  # Test when I add a new cycle of timers
+  let(:user) { create(:user) }
 
-  # GET /timers
+  let(:headers) do
+    {
+      "Authorization" => "Bearer #{user.auth_token}"
+    }
+  end
+
+  describe 'GET /timers' do
+    it "returns a successful response with an id" do
+      get "/api/v1/timers", headers: headers
+
+      expect(response).to have_http_status(:ok)
+
+      answer = JSON.parse(response.body)
+      expect(answer[0]).to have_key("id")
+      expect(answer[0]["id"]).to be_an(Integer)
+    end
+  end
+
+  describe 'POST /timers' do
+    it "return current id timer was already added" do
+      post "/api/v1/timers", headers: headers
+
+      expect(response).to have_http_status(:created)
+
+      answer = JSON.parse(response.body)
+
+      expect(answer).to have_key("id")
+      expect(answer["id"]).to be_an(Integer)
+    end
+  end
+
+  describe 'PUT /timers' do
+    pending "Create tests relatined by PUT"
+  end
+
+  describe 'DELETE /timers' do
+    pending "Create tests relatined by DELETE"
+  end
 end

@@ -16,7 +16,8 @@ Rails.application.routes.draw do
   # root "posts#index"
   namespace :api do
     namespace :v1 do
-      resources :timers
+      post "/login", to: "sessions#create"
+      resources :timers, only: [ :index, :create ]
     end
   end
 end
