@@ -31,18 +31,14 @@ class Api::V1::TimersController < Api::V1::BaseController
   end
 
   # # Same of new???
-  # def edit
-  # end
+  def update
+    # user_id = params[:id]
+    # We need to write the code here, but without return or something else
+  end
 
-  # # Load a specific row in a database
-  # def show
-  # end
-
-  # # Can be partial or full, refresh data relatined by model
-  # def update
-  # end
-
-  # # Delete a row folliwing the specific data you send
-  # def destroy
-  # end
+  # Delete a row folliwing the specific data you send
+  def destroy
+    timer_id = params[:id]
+    render json: { id: timer_id }, status: :ok
+  end
 end
