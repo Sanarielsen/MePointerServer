@@ -35,10 +35,21 @@ RSpec.describe "Api::V1::Timers", type: :request do
   end
 
   describe 'PUT /timers' do
-    pending "Create tests relatined by PUT"
+    it "return no_content code when we execute route with a valid id of timer" do
+      put "/api/v1/timers/1", headers: headers
+      expect(response).to have_http_status(:no_content)
+    end
   end
 
   describe 'DELETE /timers' do
-    pending "Create tests relatined by DELETE"
+    it "return a id already deleted on database" do
+      delete "/api/v1/timers/1", headers: headers
+      expect(response).to have_http_status(:ok)
+
+      answer = JSON.parse(response.body)
+
+      expect(answer).to have_key("id")
+      expect(answer["id"]).to eq("1")
+    end
   end
 end
